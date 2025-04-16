@@ -49,6 +49,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 # %%
 # This is the GeckoDriver path on my computer; update it accordingly for yours
 GECKO_PATH: str = os.path.join(os.path.dirname(__file__), 'geckodriver')
+DEST_FOLDER = os.path.join(os.path.dirname(__file__), 'data')
 
 SITE: str = 'https://www.ratemyprofessors.com/'
 PATH_SEG: str = 'search/professors/'
@@ -57,7 +58,7 @@ PATH_SEG: str = 'search/professors/'
 # %%
 SCHOOL_IDS: dict[str, int] = {
     "Acadia University": 1406, # First school I gave a conference talk at
-    # My best friend's school; hopefully where I go for my MA Political Science
+    # My best friend's school; where I want to go for my MA Political Science
     "Carleton University": 1420,
     "Memorial University of Newfoundland": 1441, # Also a school I presented at
     "Mount Allison University": 1444, # My current school
@@ -75,11 +76,11 @@ CSV_DESTS: dict[str, str] = {
 
 SCHEMA: pl.Schema = pl.Schema(
     {
-        'Name': pl.Utf8,
-        'Rating': pl.Float64,
-        'Would Take Again (%)': pl.Int64,
-        'Difficulty': pl.Float64,
-        'Department': pl.Utf8,
+        "Professor": pl.Utf8,
+        "Rating": pl.Float64,
+        "Would Take Again (%)": pl.Int64,
+        "Difficulty": pl.Float64,
+        "Department": pl.Utf8,
     }
 )
 
@@ -123,6 +124,7 @@ MAX_INNER_THREADS: int = 6
 # %%
 def main():
     handle_gecko_errors()
+    os.makedirs(DEST_FOLDER, exist_ok=True)
     start_time = time.time()
     
     # Multithread to scrape multiple universities concurrently
@@ -254,8 +256,7 @@ def session_data(source: str, options: FirefoxOptions) -> pl.DataFrame:
 def save_school_data(school: str) -> None:
     try:
         source = urljoin(SITE, f"{PATH_SEG}{SCHOOL_IDS[school]}")
-        # Handle cases where the script is not run from its parent directory
-        dest = os.path.join(os.path.dirname(__file__), CSV_DESTS[school])
+        dest = os.path.join(DEST_FOLDER, CSV_DESTS[school])
         options = FirefoxOptions()
         
         if HEADLESS_MODE:

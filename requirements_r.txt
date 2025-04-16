@@ -1,0 +1,9 @@
+coda
+dplyr
+ggplot2
+grid
+gridExtra
+hdrcde
+png
+readr
+rjags
