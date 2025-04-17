@@ -13,3 +13,6 @@ for i in $(seq 2 $NUM_PARTS); do
         exit 1
     fi
 done
+
+rm -f "README.pdf"
+pandoc "README.md" -o "README.pdf" -s -f markdown -t pdf --pdf-engine=lualatex
