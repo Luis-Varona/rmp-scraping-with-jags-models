@@ -1,4 +1,4 @@
-# `RateMyProfessors` Scraping with Hierarchical Models in JAGS
+# `RateMyProfessors` Scraping with JAGS Hierarchical Models
 
 Part 1 of this project is done in Python with the [`part1.py`](part1.py) script,
 dynamically web scraping `RateMyProfessors` to obtain data on Acadia University,

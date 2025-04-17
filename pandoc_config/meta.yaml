@@ -1,0 +1,15 @@
+---
+author: Luis M. B. Varona
+lang: en
+documentclass: article
+papersize: letter
+geometry: margin=1in
+colorlinks: true
+linkcolor: blue
+urlcolor: blue
+citecolor: blue
+header-includes: |
+  \usepackage{color, graphicx}
+  \usepackage[linktocpage=true,colorlinks=true,linkcolor=blue,citecolor=blue,pagebackref]{hyperref}
+output: pdf_document
+---
